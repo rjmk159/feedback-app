@@ -30,6 +30,7 @@ class Feedback extends Component {
       appId:'',
       feedback:'',
       feedbackText:'',
+      country:'',
       isLoading:false,
       listOfBugs:[
         "Video streaming",
@@ -57,6 +58,10 @@ class Feedback extends Component {
     }  
     else if(this.state.appId ===''){
       Helper.showTopErrorMessage('App Id is required field','danger');
+      return;
+    }  
+    else if(this.state.country ===''){
+      Helper.showTopErrorMessage('Country is required field','danger');
       return;
     }  
     else if(this.state.feedback==='notMentionedInList-1' && this.state.feedbackText==''){
@@ -124,6 +129,16 @@ class Feedback extends Component {
               autoCapitalize="none"
               placeholderTextColor={color.select.white}
               onChangeText={text => this.setState({appId: text})}
+            />
+          </View>
+          <View style={styles.formControl}>
+          <Image style={styles.imageIcon} source={images.theme1.country} />
+            <TextInput
+              style={styles.input}
+              placeholder={strings.FeedbackCountry}
+              autoCapitalize="none"
+              placeholderTextColor={color.select.white}
+              onChangeText={text => this.setState({country: text})}
             />
           </View>
           <View style={{flexDirection:'row',alignItems:'center',marginTop:20}}>
