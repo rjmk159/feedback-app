@@ -8,6 +8,7 @@ const LocalizedStrings = {
       mainCta:'Click here to proceed',
       FeedbackEmail:'Email',
       FeedbackAppName:'App Name',
+      FeedbackDeviceName:'Device Name',
       Feedback:'Feedback',
       FeedbackAppId:'App ASIN',
       FeedbackCountry:'Country',

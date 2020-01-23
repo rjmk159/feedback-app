@@ -8,6 +8,7 @@ import {
   Text,
   KeyboardAvoidingView,
   Picker,
+  ScrollView,
   ActivityIndicator
 } from 'react-native';
 import images from '../../assets/images/images';
@@ -29,6 +30,7 @@ class Feedback extends Component {
       email:'',
       appId:'',
       feedback:'',
+      deviceName:'',
       feedbackText:'',
       country:'',
       isLoading:false,
@@ -57,7 +59,11 @@ class Feedback extends Component {
       return;
     }  
     else if(this.state.appId ===''){
-      Helper.showTopErrorMessage('App Id is required field','danger');
+      Helper.showTopErrorMessage('App ASIN is required field','danger');
+      return;
+    }  
+    else if(this.state.deviceName ===''){
+      Helper.showTopErrorMessage('Device Name is required field','danger');
       return;
     }  
     else if(this.state.country ===''){
@@ -77,6 +83,8 @@ class Feedback extends Component {
       data.email = this.state.email;
       data.appName = this.state.appName;
       data.appId = this.state.appId;
+      data.deviceName = this.state.deviceName;
+      data.country = this.state.country;
       data.feedback = this.state.feedback === 'notMentionedInList-1' ? this.state.feedbackText:this.state.feedback;
       this.setState({isLoading:false});
       Actions.Thanks()
@@ -96,7 +104,8 @@ class Feedback extends Component {
           <ActivityIndicator size="large" color="#fff" />
         </View>
         :null}
-        <KeyboardAvoidingView behavior={"position"}>
+        <KeyboardAvoidingView behavior={"padding"}>
+          <ScrollView showsHorizontalScrollIndicator={false}>
           <View style={[styles.formControl]}>
             <Image
               style={styles.imageIconEmail}
@@ -129,6 +138,16 @@ class Feedback extends Component {
               autoCapitalize="none"
               placeholderTextColor={color.select.white}
               onChangeText={text => this.setState({appId: text})}
+            />
+          </View>
+          <View style={styles.formControl}>
+          <Image style={styles.imageIcon} source={images.theme1.appIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder={strings.FeedbackDeviceName}
+              autoCapitalize="none"
+              placeholderTextColor={color.select.white}
+              onChangeText={text => this.setState({deviceName: text})}
             />
           </View>
           <View style={styles.formControl}>
@@ -174,7 +193,7 @@ class Feedback extends Component {
               onChangeText={text => this.setState({feedbackText:text})}
             />
           </View>:null}
-          <View style={styles.formSubmit}>
+          <View style={[styles.formSubmit,{paddingBottom:50}]}>
             <TouchableOpacity
               style={styles.submit}
               onPress={() => {
@@ -183,6 +202,7 @@ class Feedback extends Component {
               <Text style={styles.submitText}>{strings.Submit}</Text>
             </TouchableOpacity>
           </View>
+          </ScrollView>
         </KeyboardAvoidingView>
       </ImageBackground>
     );
