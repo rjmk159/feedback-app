@@ -63,7 +63,7 @@ export default {
   label:{
     fontSize: Sizer.fontSizer(15),
     color:color.select.white,
-    marginTop:20
+    // marginTop:20
   },
   dropdown:{
     width:deviceWidth,
@@ -71,7 +71,11 @@ export default {
     fontSize: Sizer.fontSizer(15),
     paddingBottom:10,
     borderBottomWidth:1,
+    backgroundColor:color.select.white,
     borderBottomColor:color.select.white,
+    flex:1,
+    justifyContent:'center',
+    alignItem:'center'
   },
   formLink:{
     marginTop:30

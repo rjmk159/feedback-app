@@ -17,6 +17,8 @@ import { strings } from '../../utils/strings';
 import color from '../../utils/color';
 import { Actions } from 'react-native-router-flux';
 import Helper from "../../utils/Helper";
+import api from "../../utils/ApiServices"
+
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 class Feedback extends Component {
@@ -86,8 +88,15 @@ class Feedback extends Component {
       data.deviceName = this.state.deviceName;
       data.country = this.state.country;
       data.feedback = this.state.feedback === 'notMentionedInList-1' ? this.state.feedbackText:this.state.feedback;
-      this.setState({isLoading:false});
-      Actions.Thanks()
+      api.post('/feedback',data).then((res) => {
+        this.setState({isLoading:false});
+        Actions.Thanks()
+      })
+      .catch((_error) => {
+        this.setState({isLoading:false});
+        Helper.showTopErrorMessage('Something went wrong, Please try again','danger');
+      });
+
     }, 1500);
   }
 
@@ -176,7 +185,7 @@ class Feedback extends Component {
               {
                 listOfBugs.map((item,index)=>{
                   return(
-                    <Picker.Item key={index} label={item==='notMentionedInList-1'?'Other':item} value={item} />
+                    <Picker.Item key={index} style={{}} label={item==='notMentionedInList-1'?'Other':item} value={item} />
                   )
                 })
               }
